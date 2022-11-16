@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.8778fd0f.css","mappings":"AAEA,UACE,oBACF","sources":["components/parser/style.css"],"sourcesContent":["/* ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred */\n\n.isActive {\n  border: 1px solid red;\n}\n"],"names":[],"sourceRoot":""}
