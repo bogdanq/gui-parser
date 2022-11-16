@@ -5,10 +5,13 @@ import { Body } from "./components/parser/test-body";
 
 const App = () => {
   const ref = useRef(null);
+  const wrapperRef = useRef(null);
   const [tree, setTree] = useState(null);
 
   useEffect(() => {
-    setTree(nodeParser([ref.current]));
+    if (ref.current) {
+      setTree(nodeParser([ref.current]));
+    }
   }, []);
 
   return (
@@ -16,16 +19,25 @@ const App = () => {
       <div>{tree && <NodeTree tree={tree} />}</div>
 
       <div style={{ width: "50%" }}>
-        <Body r={ref} />
-        <CssEditor wrapperRef={ref} />
+        <div
+          ref={wrapperRef}
+          style={{ borderBottom: "2px solid #cdcdf1", paddingBottom: 10 }}
+        >
+          <Body r={ref} />
+        </div>
+
+        <div
+          style={{
+            width: "50%",
+            marginTop: "20px",
+          }}
+        >
+          <CssEditor wrapperRef={wrapperRef} />
+        </div>
       </div>
     </div>
   );
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+root.render(<App />);

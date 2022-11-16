@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import "./style.css";
 import { Tag, Text } from "./styled";
 
 export function nodeParser(elements) {

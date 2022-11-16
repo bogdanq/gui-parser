@@ -1,20 +1,12 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
-
+import { nanoid } from "nanoid";
 // допустимые стили для елементов
-const STYLES = [
-  "width",
-  "height",
-  "background-color",
-  "color",
-  "padding-bottom",
-  "margin-top"
-];
+const STYLES = ["background-color", "color", "padding-bottom", "margin-top"];
 
 export const updateStyleStore = createEvent();
 
 export const getStyleListenerFx = createEffect((e) => {
   const target = e.target;
-
   let styles = "";
 
   const cs = window.getComputedStyle(target, null);
@@ -28,26 +20,26 @@ export const getStyleListenerFx = createEffect((e) => {
 
 export const $editor = createStore({
   styles: [],
-  activeElement: null
+  activeElement: null,
 }).on(updateStyleStore, (state, { element, styles }) => {
-  if (state.styles.some(([key]) => key === element)) {
+  if (state.styles.some(([target]) => target === element)) {
     return {
       ...state,
       activeElement: element,
-      styles: state.styles.map(([key, style]) => {
-        if (key === element) {
-          return [key, styles];
+      styles: state.styles.map(([target, style, key]) => {
+        if (target === element) {
+          return [target, styles, key];
         }
 
-        return [key, style];
-      })
+        return [target, style, key];
+      }),
     };
   }
 
   return {
     ...state,
     activeElement: element,
-    styles: [...state.styles, [element, styles]]
+    styles: [...state.styles, [element, styles, nanoid()]],
   };
 });
 
@@ -57,5 +49,5 @@ sample({
   fn: (element) => {
     return element;
   },
-  target: updateStyleStore
+  target: updateStyleStore,
 });

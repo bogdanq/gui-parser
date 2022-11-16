@@ -33,16 +33,12 @@ export const CssEditor = ({ wrapperRef }) => {
   );
 
   const st = styles?.find(([key]) => key === activeElement)?.[1] ?? null;
+  const key = styles?.find(([key]) => key === activeElement)?.[2] ?? "";
 
   return (
     <>
       {activeElement && st && (
-        <CSSBuilder
-          key={styles.length}
-          style={st}
-          onChange={changeStyles}
-          reactive
-        />
+        <CSSBuilder key={key} style={st} onChange={changeStyles} reactive />
       )}
     </>
   );

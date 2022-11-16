@@ -2,7 +2,7 @@ const css = `
 .body2-body {
   background-color: black;
   color: white;
-  padding: 100px 201px;
+  padding: 10px 20px;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -12,7 +12,7 @@ const css = `
 }
 
 .body2-body__title {
-  font-size: 42px;
+  font-size: 20px;
   margin-top: 0;
 }
 
@@ -23,12 +23,10 @@ const css = `
   display: flex;
   align-items: center;
   justify-content: space-between;
- // background-color: rgb(41, 41, 41);
 }
 
 .body2-list__item {
   box-sizing: border-box;
-  height: 310px;
   width: 370px;
   padding: 40px;
 }
@@ -60,10 +58,8 @@ export const Body = ({ r }) => {
       <div ref={r} id="body2" data-id="18" data-type="BODY">
         <style>{css}</style>
         <div className="body2-body">
-          <span className="body2-body__mark" contentEditable>
-            Our Services
-          </span>
-          <h2 className="body2-body__title" contentEditable>
+          <span className="body2-body__mark">Our Services</span>
+          <h2 className="body2-body__title">
             We help startup's build their websites
           </h2>
           <ul className="body2-list">
@@ -76,7 +72,7 @@ export const Body = ({ r }) => {
                   className="body2-item__image"
                 />
               </div>
-              <p className="body2-item__text" contentEditable>
+              <p className="body2-item__text">
                 Beautifully Designed. Writing result-oriented ad copy is
                 difficult, as it must appeal to, entice, and convince consumers.
               </p>
@@ -90,21 +86,7 @@ export const Body = ({ r }) => {
                   className="body2-item__image"
                 />
               </div>
-              <p className="body2-item__text" contentEditable>
-                Beautifully Designed. Writing result-oriented ad copy is
-                difficult, as it must appeal to, entice, and convince consumers.{" "}
-              </p>
-            </li>
-            <li className="body2-list__item">
-              <div className="body2-item__image-wrapper">
-                <img
-                  data-img-id="i2t3"
-                  src="https://assets.website-files.com/62e8f5c9dbfdccaf94d287ac/62f23055b2506e3766b33082_icons8-sign-up-256%20(3).png"
-                  alt=""
-                  className="body2-item__image"
-                />
-              </div>
-              <p className="body2-item__text" contentEditable>
+              <p className="body2-item__text">
                 Beautifully Designed. Writing result-oriented ad copy is
                 difficult, as it must appeal to, entice, and convince consumers.{" "}
               </p>
