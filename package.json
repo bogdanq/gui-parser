@@ -10,7 +10,6 @@
     "@testing-library/user-event": "^13.5.0",
     "effector": "^22.4.0",
     "effector-react": "^22.3.4",
-    "i": "^0.3.7",
     "nanoid": "^3.3.4",
     "npm": "^9.1.1",
     "react": "^18.2.0",

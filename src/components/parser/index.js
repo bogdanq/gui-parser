@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from "react";
+import { useStore } from "effector-react";
+import React, { useMemo, useState, useEffect } from "react";
+import { $targetElement, setTargetElement } from "./model";
 import { Tag, Text } from "./styled";
 
 export function nodeParser(elements) {
@@ -50,20 +52,80 @@ export function nodeParser(elements) {
   return result[0];
 }
 
+function getRect(target) {
+  if (target.nodeName === "#text" || target.nodeName === "#comment") {
+    const range = target.ownerDocument.createRange();
+    range.selectNode(target);
+
+    const rect = range.getBoundingClientRect();
+
+    return rect;
+  }
+
+  const rect = target.getBoundingClientRect();
+
+  return rect;
+}
+
+export function getElementBounging(target) {
+  const rect = getRect(target);
+
+  return {
+    width: rect.width,
+    height: rect.height,
+    top: rect.top + target.scrollTop,
+    left: rect.left + target.scrollLeft,
+  };
+}
+
+export const NodeWrapper = ({ wrapperRef, children }) => {
+  useEffect(() => {
+    let lastElement = null;
+
+    const moveHandler = (event) => {
+      const { target } = event;
+
+      if (target && lastElement !== target && target.localName !== "html") {
+        const prevLeave = target.onmouseleave;
+
+        target.onmouseleave = () => {
+          lastElement = null;
+          setTargetElement(null);
+          target.onmouseleave = prevLeave;
+        };
+
+        lastElement = target;
+        setTargetElement(target);
+      }
+    };
+
+    wrapperRef.current?.addEventListener("mousemove", moveHandler);
+
+    const ref = wrapperRef.current;
+
+    return () => {
+      ref?.removeEventListener("mousemove", moveHandler);
+    };
+  }, [wrapperRef]);
+
+  return children;
+};
+
 const Card = ({
   tree,
   incrementCount = 1,
-  isParent,
   targetElement,
   onHover,
   onLeave,
   onClick,
-  ...rs
 }) => {
+  const targetComponentElement = useStore($targetElement);
+
   return (
     <>
       {tree?.map((node) => {
-        const isActive = targetElement === node.node;
+        const isActive =
+          (targetElement || targetComponentElement) === node.node;
 
         if (node.name === "style") {
           return null;
@@ -124,25 +186,11 @@ const Card = ({
 
 const useOverlay = (targetElement) => {
   return useMemo(() => {
-    let rect = null;
-
     if (!targetElement) {
       return null;
     }
 
-    if (
-      targetElement.nodeName === "#text" ||
-      targetElement.nodeName === "#comment"
-    ) {
-      const range = targetElement.ownerDocument.createRange();
-      range.selectNode(targetElement);
-
-      rect = range.getBoundingClientRect();
-
-      range.detach();
-    } else {
-      rect = targetElement.getBoundingClientRect();
-    }
+    const rect = getElementBounging(targetElement);
 
     const block = {
       backgroundColor: "rgb(202 0 0 / 40%)",
@@ -169,12 +217,14 @@ const useOverlay = (targetElement) => {
 
 export const NodeTree = ({ tree }) => {
   const [targetElement, setTargetElement] = useState(null);
-  const ov = useOverlay(targetElement);
+  const targetComponentElement = useStore($targetElement);
+
+  const codeOverlay = useOverlay(targetElement);
+  const targetTreeOverlay = useOverlay(targetComponentElement);
 
   return (
     <>
       <Card
-        isParent
         onHover={(node) => {
           setTargetElement(node.node);
         }}
@@ -188,7 +238,8 @@ export const NodeTree = ({ tree }) => {
         tree={[tree]}
         {...tree}
       />
-      {ov}
+      {codeOverlay}
+      {targetTreeOverlay}
     </>
   );
 };

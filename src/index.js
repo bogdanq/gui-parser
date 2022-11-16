@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { nodeParser, NodeTree, CssEditor } from "./components";
+import { nodeParser, NodeTree, CssEditor, NodeWrapper } from "./components";
 import { Body } from "./components/parser/test-body";
 
 const App = () => {
@@ -16,7 +16,11 @@ const App = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      <div>{tree && <NodeTree tree={tree} />}</div>
+      {tree && (
+        <NodeWrapper wrapperRef={wrapperRef}>
+          <NodeTree tree={tree} />
+        </NodeWrapper>
+      )}
 
       <div style={{ width: "50%" }}>
         <div
