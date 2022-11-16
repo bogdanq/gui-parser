@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/gui-parser/static/js/main.5ee3d439.js",
+    "main.js": "/gui-parser/static/js/main.a0ff408f.js",
     "index.html": "/gui-parser/index.html",
-    "main.5ee3d439.js.map": "/gui-parser/static/js/main.5ee3d439.js.map"
+    "main.a0ff408f.js.map": "/gui-parser/static/js/main.a0ff408f.js.map"
   },
   "entrypoints": [
-    "static/js/main.5ee3d439.js"
+    "static/js/main.a0ff408f.js"
   ]
 }
