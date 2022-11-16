@@ -6,7 +6,7 @@ const colors = {
   attributeValue: "rgb(10, 48, 105)",
   attributeKey: "#91461c",
   text: "#30373e",
-  commentColor: "green"
+  commentColor: "green",
 };
 
 const TagWrapper = styled.div`
@@ -16,7 +16,8 @@ const TagWrapper = styled.div`
   display: block;
   cursor: pointer;
   transition: 0.2s;
-  font-size: 14px;
+  font-size: 12px;
+  word-break: break-all;
 
   &:hover {
     background-color: #ac5c5c37;
@@ -76,7 +77,8 @@ const TextWrapper = styled.div`
   color: ${colors.text};
   transition: 0.2s;
   white-space: normal;
-  font-size: 14px;
+  font-size: 11px;
+  word-break: break-all;
 
   &:hover {
     background-color: #ac5c5c37;
