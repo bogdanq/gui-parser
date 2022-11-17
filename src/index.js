@@ -1,33 +1,24 @@
 import React, { useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { nodeParser, NodeTree, CssEditor, NodeWrapper } from "./components";
-import { Body } from "./components/parser/test-body";
+import { nodeParser, CssEditor, Body, DOMTree } from "./components";
 
 const App = () => {
-  const ref = useRef(null);
-  const wrapperRef = useRef(null);
+  const componentRef = useRef(null);
   const [tree, setTree] = useState(null);
 
   useEffect(() => {
-    if (ref.current) {
-      setTree(nodeParser([ref.current]));
+    if (componentRef.current) {
+      setTree(nodeParser([componentRef.current]));
     }
   }, []);
 
   return (
     <div style={{ display: "flex" }}>
-      {tree && (
-        <NodeWrapper wrapperRef={wrapperRef}>
-          <NodeTree tree={tree} />
-        </NodeWrapper>
-      )}
+      <DOMTree componentRef={componentRef} tree={tree} />
 
       <div style={{ width: "50%" }}>
-        <div
-          ref={wrapperRef}
-          style={{ borderBottom: "2px solid #cdcdf1", paddingBottom: 10 }}
-        >
-          <Body r={ref} />
+        <div style={{ borderBottom: "2px solid #cdcdf1", paddingBottom: 10 }}>
+          <Body r={componentRef} />
         </div>
 
         <div
@@ -36,7 +27,7 @@ const App = () => {
             marginTop: "20px",
           }}
         >
-          <CssEditor wrapperRef={wrapperRef} />
+          <CssEditor componentRef={componentRef} />
         </div>
       </div>
     </div>

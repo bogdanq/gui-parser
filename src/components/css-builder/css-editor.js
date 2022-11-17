@@ -4,7 +4,7 @@ import { CSSBuilder } from "react-css-nocode-editor";
 import { getStyleListenerFx, $editor, updateStyleStore } from "./model";
 import { updateStyleSelector } from "./utils";
 
-export const CssEditor = ({ wrapperRef }) => {
+export const CssEditor = ({ componentRef }) => {
   const { activeElement, styles } = useStore($editor);
 
   useEffect(() => {
@@ -14,14 +14,14 @@ export const CssEditor = ({ wrapperRef }) => {
   }, [styles, activeElement]);
 
   useEffect(() => {
-    wrapperRef?.current?.addEventListener("click", getStyleListenerFx);
+    componentRef?.current?.addEventListener("click", getStyleListenerFx);
 
-    const ref = wrapperRef?.current;
+    const ref = componentRef?.current;
 
     return () => {
       ref?.removeEventListener("click", getStyleListenerFx);
     };
-  }, [wrapperRef]);
+  }, [componentRef]);
 
   const changeStyles = useCallback(
     (styles) => {
