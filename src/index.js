@@ -1,20 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import ReactDOM from "react-dom/client";
-import { nodeParser, CssEditor, Body, DOMTree } from "./components";
+import { CssEditor, Body, DOMTree } from "./components";
 
 const App = () => {
   const componentRef = useRef(null);
-  const [tree, setTree] = useState(null);
-
-  useEffect(() => {
-    if (componentRef.current) {
-      setTree(nodeParser([componentRef.current]));
-    }
-  }, []);
 
   return (
     <div style={{ display: "flex" }}>
-      <DOMTree componentRef={componentRef} tree={tree} />
+      <DOMTree componentRef={componentRef} />
 
       <div style={{ width: "50%" }}>
         <div style={{ borderBottom: "2px solid #cdcdf1", paddingBottom: 10 }}>
