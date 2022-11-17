@@ -32,13 +32,12 @@ export const CssEditor = ({ componentRef }) => {
     [activeElement]
   );
 
-  const st = styles?.find(([key]) => key === activeElement)?.[1] ?? null;
-  const key = styles?.find(([key]) => key === activeElement)?.[2] ?? "";
+  const [_, style, key] = styles?.find(([key]) => key === activeElement) || [];
 
   return (
     <>
-      {activeElement && st && (
-        <CSSBuilder key={key} style={st} onChange={changeStyles} reactive />
+      {activeElement && style && (
+        <CSSBuilder key={key} style={style} onChange={changeStyles} reactive />
       )}
     </>
   );

@@ -77,7 +77,7 @@ export const Body = ({ r }) => {
                 difficult, as it must appeal to, entice, and convince consumers.
               </p>
             </li>
-            <li className="body2-list__item">
+            <li className="body2-list__item" style={{ color: "red" }}>
               <div className="body2-item__image-wrapper">
                 <img
                   data-img-id="i2t2"

@@ -11,10 +11,12 @@ export function nodeParser(elements) {
     const parentNode = node.parentElement ? map.get(node.parentElement) : null;
 
     const attrs = node.attributes
-      ? [...node.attributes].map((it) => ({
-          name: it.name,
-          value: it.value,
-        }))
+      ? [...node.attributes]
+          .map((it) => ({
+            name: it.name,
+            value: it.value,
+          }))
+          .filter((it) => it.name !== "style")
       : [];
 
     const nodeInfo = {
